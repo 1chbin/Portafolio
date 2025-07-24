@@ -16,8 +16,8 @@ function App() {
   return (
     <BrowserRouter>
       <div className={`App${darkMode ? ' dark' : ''}`}>
-        <header className="glass-header">
-          <div className="logo">MI <strong>PORTAFOLIO</strong></div>
+        <header className={`glass-header${darkMode ? ' dark' : ''}`}>
+          <div className="logo"><strong>MI PORTAFOLIO</strong></div>
           <nav>
             <NavLink to="/" end className="nav-link">
               Home
