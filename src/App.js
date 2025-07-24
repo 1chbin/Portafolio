@@ -1,23 +1,52 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import Home from './pages/Home';
+import Projects from './pages/Projects';
+import Me from './pages/Me';
 import './App.css';
 
 function App() {
-  return (
-    <body className="App-body">
-    <header className="App-header">
-      <div className="App">
-        <h1>Mi Portafolio</h1>
-        <p>Bienvenido a mi portafolio. Aquí encontrarás algunos de mis proyectos más recientes.</p>
-      </div>
-    </header>
+  const [darkMode, setDarkMode] = useState(false);
 
-      <h2>Proyectos Recientes</h2>
-      <ul>
-        <li>Proyecto 1</li>
-        <li>Proyecto 2</li>
-        <li>Proyecto 3</li>
-      </ul>
-    </body>
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => !prev);
+    document.body.classList.toggle('dark-mode', !darkMode);
+  };
+
+  return (
+    <BrowserRouter>
+      <div className={`App${darkMode ? ' dark' : ''}`}>
+        <header className="glass-header">
+          <div className="logo">MI <strong>PORTAFOLIO</strong></div>
+          <nav>
+            <NavLink to="/" end className="nav-link">
+              Home
+            </NavLink>
+            <NavLink to="/projects" className="nav-link">
+              Projects
+            </NavLink>
+            <NavLink to="/me" className="nav-link">
+              Me
+            </NavLink>
+          </nav>
+          <button className="dark-mode-toggle" onClick={toggleDarkMode}>
+            {darkMode ? 'Modo Claro' : 'Modo Oscuro'}
+          </button>
+        </header>
+
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/me" element={<Me />} />
+          </Routes>
+        </main>
+
+        <footer className="glass-footer">
+          &copy; {new Date().getFullYear()} Tu Nombre. Todos los derechos reservados.
+        </footer>
+      </div>
+    </BrowserRouter>
   );
 }
 
