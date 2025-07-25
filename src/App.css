@@ -31,7 +31,7 @@ body, html, #root {
   --bg-container: rgba(255, 255, 255, 0.6);
   --text-color: #000;
   --header-shadow: rgba(53, 53, 53, 0.1);
-  --bg-nav-button: white;
+  --bg-nav-button: backdrop-filter: blur(10px);
   --scrollable-color: #272727;
   --bg-scrollable: white;
 }
@@ -44,7 +44,7 @@ body, html, #root {
   --bg-container: rgba(40, 40, 40, 0.7);
   --text-color: white;
   --header-shadow: black;
-  --bg-nav-button: black;
+  --bg-nav-button: rgb(24, 24, 24);
   --scrollable-color: #494949;
   --bg-scrollable: black;
 }
@@ -143,7 +143,18 @@ nav {
   font-weight: bold;
 }
 
+.nav-links-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
 .nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   margin-left: 16px;
   padding: 6px 12px;
   border-radius: 10px;
@@ -163,6 +174,10 @@ nav {
 }
 .nav-button.dark:hover {
   background: #353535;
+}
+
+.nav-text {
+  margin: 0 8px;
 }
 
 /* Configuracion de contenido de paginas */
@@ -200,6 +215,11 @@ nav {
   margin: 0 auto;
   line-height: 2.6;
   color: inherit;
+}
+
+.linkedin {
+  color: var(--text-color);
+  text-decoration: none;
 }
 
 .Container {
@@ -281,6 +301,13 @@ nav {
   transform: translateY(-7.5px) rotate(-45deg);
 }
 
+.celular {
+  display: none;
+}
+
+.icon-only {
+  display: none;
+}
 
 @media (max-width: 768px) {
   .glass-header {
@@ -321,7 +348,6 @@ nav {
   top: 0; left: 0;
   width: 100%; height: 100vh;
   background: rgba(0,0,0,0.4);
-  z-index: 998;
 }
 
 @media (max-width: 480px) {
@@ -331,10 +357,32 @@ nav {
     z-index: 1000;
   }
 
+  .logo{
+    font-size: 1rem;
+    padding-right: 5px;
+  }
+
+  .icon-only {
+    display: inline;
+    vertical-align: middle;
+  }
+  .text-only {
+    display: none;
+  }
+  .icon-svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  .icon-navbar {
+    width: 24px;
+    height: 24px;
+  }
+
   nav {
     position: fixed;
     top: 0; left: -100%; 
-    width: 75%; max-width: 300px;
+    width: 70%; max-width: 300px;
     height: 100vh;
     background: var(--bg-header);
     backdrop-filter: blur(10px);
@@ -348,12 +396,33 @@ nav {
 
   nav.open {
     left: 0;
+    padding: 10px 20px 0 0;
   }
 
   nav.open .nav-button {
     width: 100%;
     font-size: 1.2rem;
-    padding: 0.75rem;
     border-radius: 12px;
+    max-width: 90%;
+    
+  }
+
+  .dark.nav-button {
+    background-color: #494949;
+  }
+
+  .titulo-home {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+
+  .celular {
+    display: inline;
+  }
+
+  .desktop {
+    display: none;
   }
 }

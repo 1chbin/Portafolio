@@ -4,8 +4,6 @@ export default function Home() {
     return (
         <section className="page-content">
             <h1 className="titulo-home">¡Hola! Soy Joaquin Allue</h1>
-            <h1 className="subtitulo"><a href="https://www.linkedin.com/in/joaquin-allue-b3a60a272/" target="_blank" rel="noopener noreferrer">LinkedIn</a></h1>
-            
             <p className='text-home Container'>
                 Soy un joven de 19 años apasionado por la tecnología y el desarrollo web. <br />
                 Actualmente estoy estudiando Sistemas IT en el Sistema Dual de la cámara de industria y comercio argentino-alemana AHK. <br />
