@@ -7,40 +7,56 @@ import './App.css';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleDarkMode = () => {
-    setDarkMode((prev) => !prev);
+    setDarkMode(prev => !prev);
     document.body.classList.toggle('dark-mode', !darkMode);
   };
+
+  const toggleMenu = () => setMenuOpen(prev => !prev);
 
   return (
     <BrowserRouter>
       <div className={`App${darkMode ? ' dark' : ''}`}>
         <header className={`glass-header${darkMode ? ' dark' : ''}`}>
           <div className="logo"><strong>MI PORTAFOLIO</strong></div>
-          <nav>
-            <button className={`nav-button${darkMode ? ' dark' : ''}`}>
-              <NavLink to="/home" end className={"nav-links"}>
-                Home
-              </NavLink>
-            </button>
-            <button className={`nav-button${darkMode ? ' dark' : ''}`}>
-              <NavLink to="/projects" className={"nav-links"}>
-                Projects
-              </NavLink>
-            </button>
 
-            <button className={`nav-button${darkMode ? ' dark' : ''}`}>
-              <NavLink to="/me" className={"nav-links"}>
-                Me
-              </NavLink>
-            </button>
-            
-          </nav>
-          <button className={`nav-button${darkMode ? ' dark' : ''}`} onClick={toggleDarkMode}>
+          <div className={`hamburger${menuOpen ? ' open' : ''}`} onClick={toggleMenu}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+{/* Boton de modo oscuro */}
+          <button
+            className={`nav-button${darkMode ? ' dark' : ''}`}
+            onClick={toggleDarkMode}
+          >
             {darkMode ? 'Modo Claro' : 'Modo Oscuro'}
           </button>
         </header>
+
+{/* Overlay */}
+        {menuOpen && ( <div className="menu-overlay" onClick={toggleMenu} />) }
+
+        <nav className={menuOpen ? 'open' : ''}>
+          <button className={`nav-button${darkMode ? ' dark' : ''}`}>  
+            <NavLink to="/home" end className="nav-links" onClick={() => setMenuOpen(false)}>
+              Home
+            </NavLink>
+          </button>
+          <button className={`nav-button${darkMode ? ' dark' : ''}`}>  
+            <NavLink to="/projects" className="nav-links" onClick={() => setMenuOpen(false)}>
+              Projects
+            </NavLink>
+          </button>
+          <button className={`nav-button${darkMode ? ' dark' : ''}`}>  
+            <NavLink to="/me" className="nav-links" onClick={() => setMenuOpen(false)}>
+              Me
+            </NavLink>
+          </button>
+        </nav>
 
         <main>
           <Routes>
