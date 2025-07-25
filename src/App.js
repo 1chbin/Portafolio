@@ -19,17 +19,25 @@ function App() {
         <header className={`glass-header${darkMode ? ' dark' : ''}`}>
           <div className="logo"><strong>MI PORTAFOLIO</strong></div>
           <nav>
-            <NavLink to="/" end className="nav-link">
-              Home
-            </NavLink>
-            <NavLink to="/projects" className="nav-link">
-              Projects
-            </NavLink>
-            <NavLink to="/me" className="nav-link">
-              Me
-            </NavLink>
+            <button className={`nav-button${darkMode ? ' dark' : ''}`}>
+              <NavLink to="/home" end className={"nav-links"}>
+                Home
+              </NavLink>
+            </button>
+            <button className={`nav-button${darkMode ? ' dark' : ''}`}>
+              <NavLink to="/projects" className={"nav-links"}>
+                Projects
+              </NavLink>
+            </button>
+
+            <button className={`nav-button${darkMode ? ' dark' : ''}`}>
+              <NavLink to="/me" className={"nav-links"}>
+                Me
+              </NavLink>
+            </button>
+            
           </nav>
-          <button className="dark-mode-toggle" onClick={toggleDarkMode}>
+          <button className={`nav-button${darkMode ? ' dark' : ''}`} onClick={toggleDarkMode}>
             {darkMode ? 'Modo Claro' : 'Modo Oscuro'}
           </button>
         </header>
@@ -43,7 +51,7 @@ function App() {
         </main>
 
         <footer className="glass-footer">
-          &copy; {new Date().getFullYear()} Tu Nombre. Todos los derechos reservados.
+          &copy; {new Date().getFullYear()} Portafolio de JoacoDev
         </footer>
       </div>
     </BrowserRouter>

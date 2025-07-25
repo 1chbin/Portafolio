@@ -1,30 +1,39 @@
-:root {
-  --bg-main: url(/public/assets/Wallpaper2.jpg);
-  --bg-header: rgba(255, 255, 255, 0.3);
-  --bg-container: rgba(255, 255, 255, 0.6);
-  --text-color: #000;
-  --header-shadow: rgba(53, 53, 53, 0.1);
-}
-
-.App.dark {
-  background: url(/public/assets/Wallpaper1.jpg);
-  --bg-header: rgba(30, 30, 30, 0.7);
-  --bg-container: rgba(40, 40, 40, 0.7);
-  --text-color: #f5f5f5;
-  --header-shadow: rgba(0, 0, 0, 0.5);
-}
-
 body, html, #root {
   margin: 0;
   padding: 0;
   height: 100%;
 }
 
+@keyframes agrandarAchicar {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+:root {
+  --bg-main: url(/public/assets/Wallpaper2.jpg);
+  --bg-header: rgba(255, 255, 255, 0.3);
+  --bg-container: rgba(255, 255, 255, 0.6);
+  --text-color: #000;
+  --header-shadow: rgba(53, 53, 53, 0.1);
+  --bg-nav-button: white;
+}
+
+/* Configuraciones del modo oscuro basicas */
+.App.dark {
+  --bg-main: url(/public/assets/Wallpaper1.jpg);
+  --bg-header: rgba(30, 30, 30, 0.7);
+  --bg-container: rgba(40, 40, 40, 0.7);
+  --text-color: white;
+  --header-shadow: black;
+  --bg-nav-button: black;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   background: var(--bg-main);
   color: var(--text-color);
-  transition: background 0.3s, color 0.3s;
+  transition: 0.3s, color 0.3s;
 }
 
 .App {
@@ -35,12 +44,25 @@ body {
   color: var(--text-color);
 }
 
+/* Header y footer con efecto glass */
+
 .glass-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 20px;
   padding: 12px 24px;
+  background: var(--bg-header);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px var(--header-shadow);
+  color: inherit;
+}
+
+.glass-footer {
+  text-align: center;
+  padding: 12px 0;
+  margin: 20px;
   background: var(--bg-header);
   backdrop-filter: blur(10px);
   border-radius: 20px;
@@ -56,81 +78,64 @@ body {
   color: inherit;
 }
 
+/* Configuraciones del NAV */
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+  animation: agrandarAchicar 3s ease-in-out infinite;
+}
+
 nav {
   display: flex;
   gap: 20px;
 }
 
-.nav-link {
+.nav-links {
   position: relative;
   text-decoration: none;
   font-weight: 500;
   padding: 6px 12px;
   border-radius: 10px;
-  transition: background 0.3s;
+  transition: 0.3s;
   color: inherit;
 }
 
-.nav-link:hover {
-  background: rgba(255, 255, 255, 0.6);
+.nav-links.active {
+  font-size: large;
+  font-weight: bold;
 }
 
-.nav-link.active {
-  background: #000;
-  color: #fff;
-}
-
-.dark-mode-toggle {
+.nav-button {
   margin-left: 16px;
   padding: 6px 12px;
   border-radius: 10px;
   border: none;
-  background: #222;
-  color: #fff;
+  background: var(--bg-nav-button);
+  color: var(--text-color);
   cursor: pointer;
   font-size: 1rem;
-  transition: background 0.3s, color 0.3s;
+  transition: 0.3s, color 0.3s;
+  backdrop-filter: blur(10px);
 }
 
-.dark-mode-toggle:hover {
-  background: #444;
+.nav-button:hover {
+  background: rgb(202, 202, 202);
+  animation: agrandarAchicar 3s ease-in-out infinite;
+  box-shadow: 0 8px 32px var(--header-shadow);
+}
+.nav-button.dark:hover {
+  background: #353535;
 }
 
-.search-box {
-  display: flex;
-  align-items: center;
-  background: #fff;
-  padding: 6px 12px;
-  border-radius: 15px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.search-box input {
-  border: none;
-  outline: none;
-  font-size: 0.9rem;
-}
-
-.search-box img {
-  width: 18px;
-  margin-left: 8px;
-}
+/* Configuracion de contenido de paginas */
 
 .page-content {
   flex: 1;
   padding: 40px 20px;
   color: var(--text-color);
-}
-
-.glass-footer {
-  text-align: center;
-  padding: 12px 0;
-  margin: 20px;
-  background: var(--bg-header);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px var(--header-shadow);
-  color: inherit;
 }
 
 .Titulo {
@@ -141,10 +146,8 @@ nav {
   color: inherit;
 }
 
-@keyframes agrandarAchicar {
-  0% { transform: scale(1); }
-  50% { transform: scale(0.95); }
-  100% { transform: scale(1); }
+.Text {
+  line-height: 1.6;
 }
 
 .Container {
@@ -167,6 +170,8 @@ nav {
   grid-template-columns: repeat(auto-fill, minmax(32%, 1fr));
   gap: 10px;
 }
+
+/* Configuracion del scroll */
 
 .scrollable {
   width: 90%;
@@ -197,8 +202,4 @@ nav {
 .scrollable {
   scrollbar-width: thin;
   scrollbar-color: #000 #f0f0f0;
-}
-
-.Text {
-  line-height: 1.6;
 }
