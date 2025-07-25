@@ -10,9 +10,24 @@ body, html, #root {
   100% { transform: scale(1); }
 }
 
+@keyframes scrollbarPulse {
+  0% {
+    background-position: top;
+  }
+  100% {
+    background-position: bottom;
+  }
+}
+
+@keyframes bgWave {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
 :root {
   --bg-main: url(/public/assets/Wallpaper2.jpg);
   --bg-header: rgba(255, 255, 255, 0.3);
+  --bg-header-wave: rgba(255, 255, 255, 0.6);
   --bg-container: rgba(255, 255, 255, 0.6);
   --text-color: #000;
   --header-shadow: rgba(53, 53, 53, 0.1);
@@ -25,6 +40,7 @@ body, html, #root {
 .App.dark {
   --bg-main: url(/public/assets/Wallpaper1.jpg);
   --bg-header: rgba(30, 30, 30, 0.7);
+  --bg-header-wave: rgba(255, 255, 255, 0.2);
   --bg-container: rgba(40, 40, 40, 0.7);
   --text-color: white;
   --header-shadow: black;
@@ -51,6 +67,7 @@ body {
 /* Header y footer con efecto glass */
 
 .glass-header {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -61,6 +78,18 @@ body {
   border-radius: 20px;
   box-shadow: 0 8px 32px var(--header-shadow);
   color: inherit;
+  overflow: hidden;
+
+  /* Ola animada */
+  background-image: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--bg-header-wave) 50%,
+    transparent 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
+  animation: bgWave 6s linear infinite;
 }
 
 .glass-footer {
@@ -72,6 +101,8 @@ body {
   border-radius: 20px;
   box-shadow: 0 8px 32px var(--header-shadow);
   color: inherit;
+  position: sticky;
+  margin-top: auto;
 }
 
 .logo,
@@ -138,14 +169,23 @@ nav {
 
 .page-content {
   flex: 1;
-  padding: 40px 20px;
+  padding: 10px 20px;
   color: var(--text-color);
 }
 
 .Titulo {
-  font-size: 24px;
+  font-size: 36px;
   font-weight: bold;
   text-align: center;
+  animation: agrandarAchicar 3s ease-in-out infinite;
+  color: inherit;
+}
+
+.titulo-home {
+  font-size: 80px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 60px;
   animation: agrandarAchicar 3s ease-in-out infinite;
   color: inherit;
 }
@@ -154,13 +194,20 @@ nav {
   line-height: 1.6;
 }
 
+.text-home {
+  font-size: 20px;
+  text-align: start;
+  margin: 0 auto;
+  line-height: 2.6;
+  color: inherit;
+}
+
 .Container {
   background: var(--bg-container);
   backdrop-filter: blur(2px);
   border-radius: 16px;
   padding: 10px;
   margin: 20px auto;
-  max-width: 800px;
   color: inherit;
   transition: transform 0.5s;
 }
@@ -181,6 +228,8 @@ nav {
   width: 90%;
   height: 55vh;
   overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollable-color) var(--bg-scrollable);
 }
 
 .scrollable::-webkit-scrollbar {
@@ -189,21 +238,16 @@ nav {
 }
 
 .scrollable::-webkit-scrollbar-track {
-  background: #f0f0f0;
+  background: var(--bg-scrollable);
   border-radius: 6px;
 }
 
 .scrollable::-webkit-scrollbar-thumb {
-  background-color: #888;
   border-radius: 6px;
   border: 3px solid #f0f0f0;
-}
-
-.scrollable::-webkit-scrollbar-thumb:hover {
-  background-color: #000;
-}
-
-.scrollable {
-  scrollbar-width: thin;
-  scrollbar-color: var(--scrollable-color) var(--bg-scrollable);
+  animation: scrollbarPulse 2s infinite alternate;
+  background: linear-gradient(to bottom, #888, #000);
+  background-size: 100% 200%;
+  background-position: top;
+  transition: 0.3s;
 }
