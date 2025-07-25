@@ -17,6 +17,8 @@ body, html, #root {
   --text-color: #000;
   --header-shadow: rgba(53, 53, 53, 0.1);
   --bg-nav-button: white;
+  --scrollable-color: #272727;
+  --bg-scrollable: white;
 }
 
 /* Configuraciones del modo oscuro basicas */
@@ -27,6 +29,8 @@ body, html, #root {
   --text-color: white;
   --header-shadow: black;
   --bg-nav-button: black;
+  --scrollable-color: #494949;
+  --bg-scrollable: black;
 }
 
 body {
@@ -201,5 +205,5 @@ nav {
 
 .scrollable {
   scrollbar-width: thin;
-  scrollbar-color: #000 #f0f0f0;
+  scrollbar-color: var(--scrollable-color) var(--bg-scrollable);
 }
