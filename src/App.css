@@ -11,17 +11,19 @@ body, html, #root {
 }
 
 @keyframes scrollbarPulse {
-  0% {
-    background-position: top;
-  }
-  100% {
-    background-position: bottom;
-  }
+  0% { background-position: top; }
+  100% { background-position: bottom; }
 }
 
 @keyframes bgWave {
-  0%   { background-position: -200% 0; }
+  0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
+}
+
+@keyframes movingShadow {
+  0% { text-shadow: 0px 0 10px var(--shadow-color); }
+  50% { text-shadow: 0px 0px 7px rgb(100, 100, 100); }
+  100% { text-shadow: 0px 0px 10px var(--shadow-color); }
 }
 
 :root {
@@ -34,11 +36,12 @@ body, html, #root {
   --bg-nav-button: backdrop-filter: blur(10px);
   --scrollable-color: #272727;
   --bg-scrollable: white;
+  --shadow-color: rgb(0, 0, 0);
 }
 
 /* Configuraciones del modo oscuro basicas */
 .App.dark {
-  --bg-main: url(/public/assets/Wallpaper1.jpg);
+  --bg-main: url(/public/assets/Wallpaper3.jpg);
   --bg-header: rgba(30, 30, 30, 0.7);
   --bg-header-wave: rgba(255, 255, 255, 0.2);
   --bg-container: rgba(40, 40, 40, 0.7);
@@ -47,6 +50,7 @@ body, html, #root {
   --bg-nav-button: rgb(24, 24, 24);
   --scrollable-color: #494949;
   --bg-scrollable: black;
+  --shadow-color: white;
 }
 
 body {
@@ -67,7 +71,9 @@ body {
 /* Header y footer con efecto glass */
 
 .glass-header {
-  position: relative;
+  position: sticky;
+  top: 20px;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -197,12 +203,25 @@ nav {
 }
 
 .titulo-home {
-  font-size: 80px;
+  font-size: 6rem;
   font-weight: bold;
+  color: var(--shadow-color);
+  animation: movingShadow 3s infinite ease-in-out;
+}
+
+.foto-mia {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  box-shadow: var(--shadow-color) 0px 0px 32px;
+}
+
+.home-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
   text-align: center;
-  margin-bottom: 60px;
-  animation: agrandarAchicar 3s ease-in-out infinite;
-  color: inherit;
+  margin: 20px auto;
 }
 
 .Text {
@@ -245,7 +264,7 @@ nav {
 /* Configuracion del scroll */
 
 .scrollable {
-  width: 90%;
+  width: 100%;
   height: 55vh;
   overflow: auto;
   scrollbar-width: thin;
@@ -391,7 +410,8 @@ nav {
     padding: 2rem 1rem;
     gap: 1.5rem;
     transition: left 0.3s ease-out;
-    z-index: 999;
+    z-index: 1001;
+    border-radius: 0 20px 20px 0;
   }
 
   nav.open {
@@ -404,19 +424,28 @@ nav {
     font-size: 1.2rem;
     border-radius: 12px;
     max-width: 90%;
-    
   }
 
   .dark.nav-button {
     background-color: #494949;
   }
 
+  .home-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
   .titulo-home {
-    font-size: 1.5rem;
+    font-size: 2rem;
     text-align: center;
     margin: 0 auto;
   }
 
+  .foto-mia {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
+  }
 
   .celular {
     display: inline;
