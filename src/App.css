@@ -299,6 +299,9 @@ nav {
   z-index: 2000;
   background: var(--bg-header);
   color: var(--text-color);
+  border: var(--text-color) 2px ;
+  border-color: var(--text-color);
+  backdrop-filter: blur(10px);
   box-shadow: var(--shadow-color) 0px 0px 15px;
   border-radius: 50%;
   width: 48px;

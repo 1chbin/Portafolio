@@ -19,6 +19,12 @@ function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   React.useEffect(() => {
     const handleScroll = () => {
+      // Si estamos en /projects, nunca activar secciones
+      if (window.location.pathname === '/projects') {
+        setActiveSection('');
+        setShowScrollTop(window.scrollY > 150);
+        return;
+      }
       const meSection = document.getElementById('me');
       const homeSection = document.getElementById('home');
       if (!meSection || !homeSection) return;
@@ -48,6 +54,24 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Limpiar activeSection al navegar a /projects
+  React.useEffect(() => {
+    const handleRoute = () => {
+      if (window.location.pathname === '/projects') {
+        setActiveSection('');
+      }
+    };
+    window.addEventListener('popstate', handleRoute);
+    window.addEventListener('pushstate', handleRoute);
+    window.addEventListener('replacestate', handleRoute);
+    handleRoute();
+    return () => {
+      window.removeEventListener('popstate', handleRoute);
+      window.removeEventListener('pushstate', handleRoute);
+      window.removeEventListener('replacestate', handleRoute);
+    };
+  }, []);
+
   return (
     <BrowserRouter>
       <div className={`App${darkMode ? ' dark' : ''}`}>
@@ -58,12 +82,14 @@ function App() {
           <div className="nav-links-container">
 
             <NavLink
-              to="/" end className={({ isActive }) => `nav-links desktop${activeSection === 'home' ? ' active' : ''}`}
+              to="/"
+              end
+              className={({ isActive }) => `nav-links desktop${activeSection === 'home' && window.location.pathname !== '/projects' ? ' active' : ''}`}
               onClick={e => {
                 setMenuOpen(false);
                 setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 0);
-              }}>
-
+              }}
+            >
               <button className={`nav-button${darkMode ? ' dark' : ''}`}>  
                 <p className="nav-text">Home</p>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="icon-navbar">
@@ -71,19 +97,31 @@ function App() {
                   d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                 </svg>
               </button>
-
             </NavLink>
 
 
-            <a href="#me" className={`nav-links desktop${activeSection === 'me' ? ' active' : ''}`} onClick={e => { e.preventDefault(); setMenuOpen(false); document.getElementById('me')?.scrollIntoView({ behavior: 'smooth' }); }}>
-              <button className={`nav-button${darkMode ? ' dark' : ''}`}>  
-
+            <a
+              href="#me"
+              className={`nav-links desktop${activeSection === 'me' && window.location.pathname !== '/projects' ? ' active' : ''}${window.location.pathname === '/projects' ? ' disabled' : ''}`}
+              onClick={e => {
+                if (window.location.pathname === '/projects') {
+                  e.preventDefault();
+                  return;
+                }
+                e.preventDefault();
+                setMenuOpen(false);
+                document.getElementById('me')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              style={window.location.pathname === '/projects' ? { pointerEvents: 'none', opacity: 0.5, cursor: 'not-allowed' } : {}}
+            >
+              <button className={`nav-button${darkMode ? ' dark' : ''}`}
+                disabled={window.location.pathname === '/projects'}
+                style={window.location.pathname === '/projects' ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+              >
                 <p className="nav-text">Me</p>
-
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="icon-navbar">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
                 </svg>
-
               </button>
             </a>
 
