@@ -26,6 +26,11 @@ body, html, #root {
   100% { text-shadow: 0px 0px 10px var(--shadow-color); }
 }
 
+@keyframes mensajeAlerta {
+  from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
 :root {
   --bg-main: url(/public/assets/Wallpaper2.jpg);
   --bg-header: rgba(255, 255, 255, 0.3);
@@ -109,6 +114,25 @@ body {
   color: inherit;
   position: sticky;
   margin-top: auto;
+}
+
+/* Alerta flotante global para el botón Me deshabilitado */
+.me-alert-global {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-header);
+  backdrop-filter: blur(10px);
+  color: var(--text-color);
+  border-radius: 12px;
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  box-shadow: var(--text-color) 0 0 10px;
+  z-index: 9999;
+  animation: mensajeAlerta 0.2s;
+  pointer-events: none;
 }
 
 .logo,

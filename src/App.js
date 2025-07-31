@@ -5,9 +5,10 @@ import Projects from './pages/Projects';
 import './App.css';
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [showMeAlert, setShowMeAlert] = useState(false);
 
   const toggleDarkMode = () => {
     setDarkMode(prev => !prev);
@@ -103,6 +104,16 @@ function App() {
             <a
               href="#me"
               className={`nav-links desktop${activeSection === 'me' && window.location.pathname !== '/projects' ? ' active' : ''}${window.location.pathname === '/projects' ? ' disabled' : ''}`}
+              onMouseEnter={e => {
+                if (window.location.pathname === '/projects') {
+                  setShowMeAlert(true);
+                }
+              }}
+              onMouseLeave={e => {
+                if (window.location.pathname === '/projects') {
+                  setShowMeAlert(false);
+                }
+              }}
               onClick={e => {
                 if (window.location.pathname === '/projects') {
                   e.preventDefault();
@@ -112,11 +123,11 @@ function App() {
                 setMenuOpen(false);
                 document.getElementById('me')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              style={window.location.pathname === '/projects' ? { pointerEvents: 'none', opacity: 0.5, cursor: 'not-allowed' } : {}}
+              style={window.location.pathname === '/projects' ? { opacity: 0.5, cursor: 'not-allowed', pointerEvents: 'auto' } : {}}
             >
               <button className={`nav-button${darkMode ? ' dark' : ''}`}
-                disabled={window.location.pathname === '/projects'}
-                style={window.location.pathname === '/projects' ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+                // No usar disabled para permitir eventos de mouse
+                style={window.location.pathname === '/projects' ? { opacity: 0.5, cursor: 'not-allowed', pointerEvents: 'auto' } : {}}
               >
                 <p className="nav-text">Me</p>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="icon-navbar">
@@ -124,7 +135,6 @@ function App() {
                 </svg>
               </button>
             </a>
-
 
             <NavLink to="/projects" end className={`nav-links desktop${activeSection === '' ? '' : ''}`} onClick={() => setMenuOpen(false)}>
               <button className={`nav-button${darkMode ? ' dark' : ''}`}>  
@@ -137,11 +147,19 @@ function App() {
 
               <button className={`nav-button${darkMode ? ' dark' : ''}` + ' desktop'}>  
                   <p className="nav-text">
-                    <a href="https://www.linkedin.com/in/joaquin-allue-b3a60a272/" target="_blank" rel="noopener noreferrer" className="linkedin">Linkedin</a>
+                    <a href="https://www.linkedin.com/in/joaquin-allue-b3a60a272/" target="_blank" rel="noopener noreferrer" className="linkedin">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24" width="24" height="24" className="icon-navbar">
+                        <rect width="24" height="24" rx="4" fill="black" />
+                        <path
+                          fill="#FFF"
+                          d="M20.447 20.452h-3.554v-5.569c0-1.327-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.941v5.665h-3.554V8.998h3.414v1.538h.049c.476-.901 1.637-1.852 3.369-1.852 3.602 0 4.269 2.369 4.269 5.456v6.311zM5.337 7.433c-1.144 0-2.069-.928-2.069-2.069 0-1.14.925-2.069 2.069-2.069s2.069.928 2.069 2.069c0 1.14-.925 2.069-2.069 2.069zm1.777 13.019H3.56V8.998h3.554v11.454z"
+                        />
+                      </svg>
+                    </a>
+                    
                   </p>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="icon-navbar">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
-                  </svg>
                 </button>
               </div>
 
@@ -179,6 +197,12 @@ function App() {
           </div>
 
         </header>
+
+        {showMeAlert && (
+              <div className="me-alert-global">
+                Tienes que estar en la página de Home
+              </div>
+            )}
 
 {/* Overlay */}
         {menuOpen && ( <div className="menu-overlay" onClick={toggleMenu} />) }
